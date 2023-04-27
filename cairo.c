@@ -4,6 +4,16 @@
 #include "sys/wait.h"
 #include "unistd.h"
 
+
+/*
+ * This is a simple command prompt written in C.
+ * It reads user input and executes the specified command,
+ * displaying the output on the console.
+ * The program runs in an infinite loop
+ * The prompt is cleared after each command is executed,
+ * and the user can exit the program by entering the "exit" command.
+ */
+
 void read_command(char cmd[], char *par[]){
 	char line[1024];
 	int count = 0, i = 0, j = 0;
@@ -38,6 +48,10 @@ void read_command(char cmd[], char *par[]){
 	}
 }
 
+/* Function to print the prompt
+ *
+ * prints '#' in return
+ * */
 void type_prompt(){
 	static int first_time = 1;
 	if(first_time){
@@ -49,32 +63,37 @@ void type_prompt(){
 	printf("#");
 }
 
+/*main function
+ *Runs an infinite loop to keep the command prompt running
+ *Fork a child process to execute the command
+ *Exit the program if the user enters the "exit" command
+ */
 int main(){
-	char cmd[100], command[100], *parameters[20];
-
-	while(1){
-		type_prompt();
-		read_command(command, parameters);
-		if(strcmp(command, "exit") == 0){
-			break;
-		}
-
-		if(access(command, X_OK)!=0){
-			printf("Error: Command not found.\n");
-			continue;
-		}
-
-		if(fork()!= 0){
-			wait(NULL);
-		}else{
-			int result = execvp(command,parameters);
-			if(result == -1){
-				printf("Error: Command execution failed.\n");
-				exit(1);
-			}
-		}
-		type_prompt
+char cmd[100], command[100], *parameters[20];
+while(1){
+	type_prompt();
+	read_command(command, parameters);
+	if(strcmp(command, "exit") == 0){
+		break;
 	}
 
-	return 0;
+	if(access(command, X_OK)!=0){
+		printf("Error: Command not found.\n");
+		continue;
+	}
+
+	if(fork()!= 0){
+		wait(NULL);
+	} 
+	else{
+		int result = execvp(command,parameters);
+		if(result == -1){
+			printf("Error: Command execution failed.\n");
+			exit(1);
+		}
+	}
+	type_prompt();
+	}
+
+return 0;
 }
