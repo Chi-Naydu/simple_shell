@@ -28,7 +28,7 @@ char *array[100], *pch;
  */
 for (;;)
 {
-	int c = fgetc(stdin);
+	int c = fgetc (stdin);
 	if (c == EOF)
 	{
 		fprintf(stderr, "Error: Could not read from stdin\n");
@@ -39,18 +39,16 @@ for (;;)
 	{
 		break;
 	}
-	
 	if (count == 1)
 	{
 		return;
-        }
+	}
 	pch = strtok(line, "\n");
 	if (pch == NULL)
 	{
 		fprintf(stderr, "Error: Could not tokenize input\n");
 		exit(1);
 	}
-	
 	while (pch != NULL)
 	{
 		array[i++] = strdup(pch);
@@ -59,7 +57,7 @@ for (;;)
 			fprintf(stderr, "Error: Could not allocate memory for token\n");
 			exit(1);
 		}
-		pch = strtok(NULL, "\n");
+		pch = strtok(NULL,);
 	}
 	strcpy(cmd, array[0]);
 	for (int j = 0; j < i; j++)
@@ -77,8 +75,8 @@ void type_prompt(void)
 	static int first_time = 1;
 	if (first_time)
 	{
-		const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-		write(STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
+		const *char CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+		write (STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
 		first_time = 0;
 	}
 	printf("#");
@@ -94,7 +92,7 @@ int main(void)
 {
 	char cmd[100], command[100], *parameters[20];
 	char *envp[] = { (char *) "PATH=C:", 0 };
-	while (1)
+	while  (1)
 	{
 		type_prompt();
 		read_command(command, parameters);
