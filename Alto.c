@@ -29,7 +29,7 @@ char *array[100], *pch;
 for (;;)
 {
 	int c = fgetc(stdin);
-	if(c == EOF)
+	if (c == EOF)
 	{
 		fprintf(stderr, "Error: Could not read from stdin\n");
 		exit(1);
@@ -91,7 +91,7 @@ int main(void)
 {
 	char cmd[100], command[100], *parameters[20];
 	char *envp[] = { (char *) "PATH=C:", 0 };
-	while(1)
+	while (1)
 	{
 		type_prompt();
 		read_command(command, parameters);
