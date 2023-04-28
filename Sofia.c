@@ -9,74 +9,97 @@
  * It reads user input and executes the specified command,
  * displaying the output on the console.
  * The program runs in an infinite loop
- * The prompt is cleared after each command is executed, 
+ * The prompt is cleared after each command is executed,
  * and the user can exit the program by entering the "exit" command.
  */
 
-void read_command(char cmd[], char*par[]){
+void read_command(char cmd[], char *par[])
+{
 	char line[1024];
-	int count =0, i = 0, j = 0;
-	char*array[100], *pch;
-	
-	for (;;){
+	int count = 0, i = 0, j = 0;
+	char *array[100], *pch;
+
+	for (;;)
+	{
 		int c = fget(stdin);
-		if (c == EOF){
+
+		if (c == EOF)
+		{
 			fprintf(stderr, "Erro could not read stdin\n");
 			exit(1);
 		}
 		line[count++] = (char) c;
-		if(c =='\n'){
+		if (c == '\n')
+		{
 			break;
-		}		
-		if (count == 1){
+		}
+		if (count == 1)
+		{
 			return;
 		}
-		if(sscanf(line, "%s", cmd)!= 1){
-			fprintf(stder,"Error: could not parse input\n");
+		if (sscanf(line, "%s", cmd) != 1)
+		{
+			fprintf(stder, "Error: could not parse input\n");
 			return;
 		}
-		par[0]= NULL;
+		par[0] = NULL;
 	}
 }
-// Function to print the prompt
+/*
+ * Function to print the prompt
+ *
+ */
 
-void type_prompt(){
+void type_prompt(void)
+{
 	static int first_time = 1;
-	if(first_time){
-		const char*CLEAR_SCREEN_ANSI="\e[1;1H\e[2J";
-		writeSTDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
+
+	if (first_time)
+	{
+		const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+
+		write(STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
 		first_time = 0;
 	}
 	printf("#");
 }
 
-/*main function
+/*
+ * main function
  *Runs an infinite loop to keep the command prompt running
  *Fork a child process to execute the command
  *Exit the program if the user enters the "exit" command
  */
 
-int main(){
-	char cmd[100,] command[100], *parameters[20];
+int main(void)
+{
+	char cmd[100] command[100], *parameters[20];
 
-	char*envp[] = {(char*), 0};
-	while(1){
+	char *envp[] = {(char *), 0};
+
+	while (1)
+	{
 		type_prompt();
 		read_command(command_parameters);
-		if(fork()!=0){
+		if (fork() != 0)
+		{
 			wait(NULL);
-		} else {
-			strcpy(cmd,);
+		}
+		else
+		{
+			strcpy(cmd);
 			strcpy(cmd, command);
-			if(result == -1){
+			if (result == -1)
+			{
 				printf("Error: Command not found.\n");
 				exit(1);
 			}
 		}
-		if(strcmp(command, "exit") == 0){
+		if (strcmp(command, "exit") == 0)
+		{
 			break;
 		}
 		type_prompt();
 	}
-	return 0;
+	return (0);
 }
