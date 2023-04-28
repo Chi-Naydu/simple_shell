@@ -28,8 +28,8 @@ char *array[100], *pch;
  */
 for (;;)
 {
-	int c = fgetc (stdin);
-	if (c == EOF)
+	int c = fgetc(stdin);
+	if(c == EOF)
 	{
 		fprintf(stderr, "Error: Could not read from stdin\n");
 		exit(1);
@@ -57,7 +57,7 @@ for (;;)
 			fprintf(stderr, "Error: Could not allocate memory for token\n");
 			exit(1);
 		}
-		pch = strtok(NULL,);
+		pch = strtok(NULL ,);
 	}
 	strcpy(cmd, array[0]);
 	for (int j = 0; j < i; j++)
@@ -65,7 +65,6 @@ for (;;)
 		par[j] = array[j];
 		par[i] = NULL;
 	}
-}
 }
 /*
  *Function to print the prompt
@@ -76,7 +75,7 @@ void type_prompt(void)
 	if (first_time)
 	{
 		const *char CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-		write (STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
+		write(STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
 		first_time = 0;
 	}
 	printf("#");
@@ -92,7 +91,7 @@ int main(void)
 {
 	char cmd[100], command[100], *parameters[20];
 	char *envp[] = { (char *) "PATH=C:", 0 };
-	while  (1)
+	while(1)
 	{
 		type_prompt();
 		read_command(command, parameters);
